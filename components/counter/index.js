@@ -15,7 +15,7 @@ class Counter extends React.Component {
     onChange: PropTypes.func
   }
   static defaultProps = {
-    // prefixCls: 'hi-collapse',
+    // prefix: 'hi-collapse',
     // activeIndex: 1
     value: 0,
     step: 1

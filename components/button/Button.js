@@ -17,17 +17,17 @@ class Button extends Component {
     target: PropTypes.oneOf(['_self', '_blank', '_parent', '_top'])
   }
 
-  deprecatedProps = {
-    type: ['info'],
-    appearance: ['line']
-  }
-
   static defaultProps = {
-    prefixCls: 'hi-btn',
     type: 'default',
     disabled: false,
     appearance: 'button',
     size: 'normal'
+  }
+
+  prefix = 'hi-btn'
+  deprecatedProps = {
+    type: ['info'],
+    appearance: ['line']
   }
 
   clickCb () {
@@ -36,34 +36,39 @@ class Button extends Component {
     }
   }
 
-  render () {
+  get classNames () {
     const {
       type,
       disabled,
       className,
       size,
-      prefixCls,
       appearance,
+      theme
+    } = this.props
+    const classList = []
+
+    classList.push('theme__' + theme)
+    classList.push(this.prefix)
+    classList.push(`${this.prefix}--type--${type}`)
+    appearance && classList.push(`${this.prefix}--appearance--${appearance}`)
+    size && classList.push(`${this.prefix}--size--${size}`)
+    disabled && classList.push(`${this.prefix}--disabled`)
+    className && classList.push(className)
+
+    // For version < 1.1.0
+    type === 'primary' && appearance === 'line' && classList.push(`${this.prefix}--type--line`)
+
+    return classNames(...classList)
+  }
+
+  render () {
+    const {
+      disabled,
       style,
       title,
       href,
-      target,
-      theme
+      target
     } = this.props
-    const classes = classNames(
-      'theme__' + theme,
-      `${prefixCls}`,
-      className && `${className}`,
-      appearance && `${prefixCls}--appearance--${appearance}`,
-      size && `${prefixCls}--size--${size}`,
-      disabled && `${prefixCls}--disabled`,
-
-      // For version < 1.1.0
-      (type === 'primary' && appearance === 'line')
-        ? `${prefixCls}--type--line`
-        : `${prefixCls}--type--${type}`
-    )
-
     const disabledBool = !!disabled
 
     deprecatedPropsCheck(this.deprecatedProps, this.props, 'Button')
@@ -71,22 +76,22 @@ class Button extends Component {
     return (
       href
         ? <a
-          className={classes}
-          onClick={() => this.clickCb()}
-          style={style}
+          className={this.classNames}
           title={title}
           href={href}
           target={target}
+          style={style}
+          onClick={() => this.clickCb()}
         >
           {this.props.children}
         </a>
         : <button
-          className={classes}
-          disabled={disabledBool}
-          onClick={() => this.clickCb()}
-          style={style}
-          title={title}
           type='button'
+          className={this.classNames}
+          disabled={disabledBool}
+          title={title}
+          style={style}
+          onClick={() => this.clickCb()}
         >
           {this.props.children}
         </button>
