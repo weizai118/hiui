@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import locales from '../../locales'
-import Dashboard, { Logo } from '@hi-ui/classic-theme'
+import Dashboard, { Logo, NavGroup } from '@hi-ui/classic-theme'
 
 import logoImg from '../../static/img/logo.png'
 import routes from './router'
@@ -89,23 +88,20 @@ class Doc extends Component {
 
     return (
       <React.Fragment>
-        <Logo
-          url='https://xiaomi.github.io/hiui/'
-          logoUrl={logoImg}
-          height={40}
-          text='HIUI Design'
-        />
-        <ul className='header-nav'>
-          <li><Link to={`/${locale}`}>Home</Link></li>
-          {/* <li><Link to={`/${locale}/docs/design`} className={doc === 'design' ? 'active' : ''}>设计规范</Link></li> */}
-          <li><Link to={`/${locale}/components`} className={doc === 'components' ? 'active' : ''}>Component</Link></li>
-          <li>
+        <NavGroup pos='right'>
+          <NavGroup.Item>
+            <a href={`#/${locale}`}>Home</a>
+          </NavGroup.Item>
+          <NavGroup.Item>
+            <a href={`#/${locale}/components`} className={doc === 'components' ? 'active' : ''}>Component</a>
+          </NavGroup.Item>
+          <NavGroup.Item>
             <LocaleDropdown locale={locale} />
-          </li>
-          <li>
+          </NavGroup.Item>
+          <NavGroup.Item>
             <ThemeDropdown locale={locale} />
-          </li>
-        </ul>
+          </NavGroup.Item>
+        </NavGroup>
       </React.Fragment>
     )
   }
@@ -117,6 +113,14 @@ class Doc extends Component {
     return (
       <Dashboard
         header={header}
+        logo={
+          <Logo
+            url='https://xiaomi.github.io/hiui/'
+            logoUrl={logoImg}
+            height={40}
+            text='HIUI Design'
+          />
+        }
         sider={sider}
         routes={routes}
         theme={{

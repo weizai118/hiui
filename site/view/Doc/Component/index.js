@@ -24,7 +24,8 @@ class Component extends React.Component {
 
   componentDidMount () {
     const sider = {
-      items: this.getSiderItems()
+      items: this.getSiderItems(),
+      isHash: true
     }
     globalSider(sider)
 
@@ -92,8 +93,8 @@ class Component extends React.Component {
     Object.keys(pages.components).map((title, i) => {
       components.push({
         key: 'ct' + i,
-        title: <span className='components-title'>{this.props.locale === 'en-US' ? locales[this.props.locale]['mini'][title] : title}</span>,
-        to: '',
+        title: this.props.locale === 'en-US' ? locales[this.props.locale]['mini'][title] : title,
+        type: 'title',
         noaction: true
       })
 
@@ -146,11 +147,10 @@ class Component extends React.Component {
 
   getCurrentPage (fn) {
     let routes = window.location.hash.split('/')
-    // if (!routes) {
-    //   window.location.hash = `#/${this.props.locale}/components/quick-start`
-    // }
+    if (!routes[3]) {
+      window.location.hash = `#/${this.props.locale}/components/quick-start`
+    }
     let page = routes[3] ? routes[3] : 'quick-start'
-
     this.setState({ page }, fn)
   }
 

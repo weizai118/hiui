@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import locales from '../../locales'
-import Dashboard, { Logo } from '@hi-ui/classic-theme'
+import Dashboard, { Logo, NavGroup } from '@hi-ui/classic-theme'
 
 import logoImg from '../../static/img/logo.png'
 import routes from './router'
@@ -89,23 +88,20 @@ class Doc extends Component {
 
     return (
       <React.Fragment>
-        <Logo
-          url='https://xiaomi.github.io/hiui/'
-          logoUrl={logoImg}
-          height={40}
-          text='HIUI Design'
-        />
-        <ul className='header-nav'>
-          <li><Link to={`/${locale}`}>首页</Link></li>
-          {/* <li><Link to={`/${locale}/docs/design`} className={doc === 'design' ? 'active' : ''}>设计规范</Link></li> */}
-          <li><Link to={`/${locale}/components`} className={doc === 'components' ? 'active' : ''}>组件</Link></li>
-          <li>
+        <NavGroup pos='right'>
+          <NavGroup.Item>
+            <a className='header__item' href={`#/${locale}`}>首页</a>
+          </NavGroup.Item>
+          <NavGroup.Item>
+            <a href={`#/${locale}/components`} className={doc === 'components' ? 'active header__item' : 'header__item'}>组件</a>
+          </NavGroup.Item>
+          <NavGroup.Item>
             <LocaleDropdown locale={locale} />
-          </li>
-          <li>
+          </NavGroup.Item>
+          <NavGroup.Item>
             <ThemeDropdown locale={locale} />
-          </li>
-        </ul>
+          </NavGroup.Item>
+        </NavGroup>
       </React.Fragment>
     )
   }
@@ -113,15 +109,23 @@ class Doc extends Component {
   render () {
     const { sider } = this.props
     const header = this.renderHeader()
-
+    Dashboard.isHash = true
     return (
       <Dashboard
         header={header}
         sider={sider}
+        logo={
+          <Logo
+            url='https://xiaomi.github.io/hiui/'
+            logoUrl={logoImg}
+            height={40}
+            text='HIUI Design'
+          />
+        }
         routes={routes}
         theme={{
-          type: 'outer',
-          color: 'light'
+          // type: 'outer',
+          // color: 'light'
         }}
       />
     )

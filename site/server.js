@@ -18,6 +18,7 @@ const server = new WebpackDevServer(compiler, {
   quiet: true,
   filename: config.output.filename,
   publicPath: config.output.publicPath,
+
   stats: {
     colors: true
   }

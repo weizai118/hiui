@@ -19,7 +19,8 @@ export default [
     component: Design
   },
   {
-    path: '/zh-CN/',
+    path: '/',
+    exact: true,
     strict: true,
     component: Component
   }
