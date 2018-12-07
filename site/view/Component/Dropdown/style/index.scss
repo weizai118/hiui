@@ -1,32 +1,16 @@
 @import '@hi-ui/core-css/lib/core/index.scss';
-.dashboard {
-  .header-nav {
-    align-items: center;
-  }
-}
-.colors {
-  position: relative;
-}
-.color-list {
-  position: absolute;
-  top: 24px;
-  &.hide {
-    display: none;
-  }
-  li {
-    margin: 2px 0;
-  }
-}
 
 .hi-demo {
   &__dropdown {
     position: relative;
   }
+
   &__title {
     .hi-icon {
       margin-left: 6px;
     }
   }
+
   &__list {
     position: absolute;
     right: 0;
@@ -39,34 +23,42 @@
     list-style-type: none;
     font-size: 12px;
     background: #fff;
+
     &--hide {
       display: none;
     }
+
     &--colors {
       padding: 10px 8px;
       box-sizing: border-box;
     }
   }
+
   &__item {
     padding: 8px 0;
     cursor: pointer;
+
     &:hover {
       color: #4284f5;
     }
+
     &--color {
       display: flex;
       align-items: center;
+
       span:last-child {
         margin-left: 6px;
       }
     }
   }
+
   &__item-dot {
     display: block;
     width: 16px;
     height: 16px;
     cursor: pointer;
     border-radius: 50%;
+
     @each $key, $value in $palette-primary {
       &.theme__#{$key} {
         background-color: map-get(get-palette($value), '50');

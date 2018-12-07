@@ -1,58 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import locales from '../../locales'
-import Dashboard, { Logo, NavGroup } from '@hi-ui/classic-theme'
-
-import logoImg from '../../static/img/logo.png'
+import Page, { Logo, NavGroup } from '@hi-ui/classic-theme'
 import routes from './router'
 import LocaleDropdown from '../Component/Dropdown/LocaleDropdown'
 import ThemeDropdown from '../Component/Dropdown/ThemeDropdown'
-
+import locales from '../../locales'
+import logoImg from '../../static/img/logo.png'
 import './index.scss'
 
-// 引入组件样式
-const req = require.context('../../../components', true, /^\.\/[^_][\w-]+\/style\/index\.js?$/)
-req.keys().forEach((mod) => {
-  let v = req(mod)
-  if (v && v.default) {
-    v = v.default
-  }
-})
-
 class Doc extends Component {
-  // constructor (props) {
-  //   super(props)
-
-  //   // this.hashChangeEvent = this.hashChangeEvent.bind(this)
-  // }
-
-  componentDidMount () {
-
-    // window.addEventListener('hashchange', this.hashChangeEvent)
-  }
-
-  componentWillUnmount () {
-    // window.removeEventListener('hashchange', this.hashChangeEvent)
-  }
-
-  // hashChangeEvent () {
-  //   let locale = window.location.hash.split('/')[1]
-
-  //   if (!locale) { return }
-
-  //   // 临时用于隐藏语言
-  //   if (locale !== 'zh-CN') {
-  //     window.location.hash = window.location.hash.replace(locale, 'zh-CN')
-  //   }
-
-  //   if (locale !== window.localStorage.getItem('HIUI_LANGUAGE')) {
-  //     window.localStorage.setItem('HIUI_LANGUAGE', locale)
-
-  //     this.setState({locale})
-  //   }
-  // }
-
-  // 保存语言类型
   storeLang () {
     let locale = window.location.hash.split('/')[1]
 
@@ -67,6 +23,7 @@ class Doc extends Component {
 
   getCurrentDoc () {
     const doc = window.location.hash.split('/')
+
     if (doc[2] === 'components') {
       return doc[2]
     } else if (doc[2] === 'docs') {
@@ -78,12 +35,6 @@ class Doc extends Component {
     const {
       locale
     } = this.props
-
-    // const LANG = {
-    //   'zh-CN': 'English',
-    //   'en-US': '中文'
-    // }
-
     const doc = this.getCurrentDoc()
 
     return (
@@ -93,7 +44,7 @@ class Doc extends Component {
             <a href={`#/${locale}`}>Home</a>
           </NavGroup.Item>
           <NavGroup.Item>
-            <a href={`#/${locale}/components`} className={doc === 'components' ? 'active' : ''}>Component</a>
+            <a href={`#/${locale}/components`} className={doc === 'components' ? 'header__nav-item--active' : ''}>Component</a>
           </NavGroup.Item>
           <NavGroup.Item>
             <LocaleDropdown locale={locale} />
@@ -109,23 +60,24 @@ class Doc extends Component {
   render () {
     const { sider } = this.props
     const header = this.renderHeader()
-
+    const logo = <Logo
+      url='https://xiaomi.github.io/hiui/#/'
+      logoUrl={logoImg}
+      text='HIUI Design'
+      title='HIUI Design'
+      alt='HIUI Logo'
+      height={40}
+    />
+    Page.isHash = true
     return (
-      <Dashboard
+      <Page
         header={header}
-        logo={
-          <Logo
-            url='https://xiaomi.github.io/hiui/'
-            logoUrl={logoImg}
-            height={40}
-            text='HIUI Design'
-          />
-        }
+        logo={logo}
         sider={sider}
         routes={routes}
-        theme={{
-          type: 'outer',
-          color: 'light'
+        config={{
+          type: 'flat',
+          color: 'white'
         }}
       />
     )

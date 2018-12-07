@@ -51,7 +51,7 @@ class LocaleDropdown extends React.Component {
         onMouseEnter={this.toggleDropdown.bind(this, true)}
         onMouseLeave={this.toggleDropdown.bind(this, false)}
       >
-        <a className='hi-demo__title' >
+        <a className='hi-demo__title' href='javascript: void(0)'>
           <span className='hi-demo__text'>{title}</span>
           <i className='hi-icon icon-down' />
         </a>
