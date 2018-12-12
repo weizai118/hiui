@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Page, { Logo, NavGroup } from '@hi-ui/classic-theme'
+import { Logo, NavGroup, History, Classic as Page } from '@hi-ui/classic-theme'
 import routes from './router'
 import LocaleDropdown from '../Component/Dropdown/LocaleDropdown'
 import ThemeDropdown from '../Component/Dropdown/ThemeDropdown'
 import locales from '../../locales'
 import logoImg from '../../static/img/logo.png'
 import './index.scss'
-
+History.createHashHistory()
 class Doc extends Component {
   storeLang () {
     let locale = window.location.hash.split('/')[1]
@@ -68,7 +68,6 @@ class Doc extends Component {
       alt='HIUI Logo'
       height={40}
     />
-    Page.isHash = true
     return (
       <Page
         header={header}
